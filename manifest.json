@@ -1,0 +1,11 @@
+{
+    "name": "Weather Now",
+    "description": "Simple yet elegant, live in the moment, chrome weather plugin",
+    "version": "0.1",
+    "app": {
+        "background": {
+            "scripts": ["background.js"]
+        }
+    },
+    "icons": { "16": "/public/images/calculator-16.png", "128": "/public/images/calculator-128.png" }
+}w
