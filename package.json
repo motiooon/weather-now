@@ -1,0 +1,27 @@
+{
+  "name": "WeatherNow",
+  "version": "0.0.1",
+  "description": "Simple yet elegant, live in the moment, chrome weather plugin",
+  "main": "background.js",
+  "scripts": {
+    "test": "mocha tests/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/motiooon/weather-now.git"
+  },
+  "keywords": [
+    "weather",
+    "chrome",
+    "extension"
+  ],
+  "author": "Gabriel Baciu",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "e9f6b93f4c2b7c4338f6605efd58f283720e50b4",
+  "devDependencies": {
+    "mocha": "~1.15.0",
+    "underscore": "~1.5.2",
+    "jquery": "~1.8.3"
+  }
+}
