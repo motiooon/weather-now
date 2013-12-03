@@ -27,13 +27,8 @@
     // Whether Dojo Toolkit globals should be predefined.
     "dojo": false,
 
-    // Chrome global
-    "chrome" : true,
-    // Backbone global
-    "Backbone" : true,
-
     // Custom predefined globals.
-    "predef": [],
+    "predef": ["chrome", "it", "describe"],
 
     // Development
 
