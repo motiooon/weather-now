@@ -8,5 +8,5 @@
             "scripts": ["background.js"]
         }
     },
-    "icons": { "16": "/public/images/weathernow-16.png", "128": "/public/images/weathernow-128.png" }
+    "icons": { "16": "weathernow-16.png", "128": "weathernow-128.png" }
 }
