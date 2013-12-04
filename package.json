@@ -19,9 +19,11 @@
   "license": "BSD",
   "readmeFilename": "README.md",
   "gitHead": "e9f6b93f4c2b7c4338f6605efd58f283720e50b4",
+  "dependencies":{
+      "underscore": "~1.5.2",
+      "jquery": "~1.8.3"
+  },
   "devDependencies": {
-    "mocha": "~1.15.0",
-    "underscore": "~1.5.2",
-    "jquery": "~1.8.3"
+    "mocha": "~1.15.0"
   }
 }

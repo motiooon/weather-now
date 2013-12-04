@@ -1,0 +1,15 @@
+{
+  "name": "swig",
+  "homepage": "https://github.com/paularmstrong/swig",
+  "version": "1.2.2",
+  "_release": "1.2.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.2.2",
+    "commit": "9532f534f1cd31b061771dbb3f4c1d8fa30744e8"
+  },
+  "_source": "git://github.com/paularmstrong/swig.git",
+  "_target": "~1.2.2",
+  "_originalSource": "swig",
+  "_direct": true
+}

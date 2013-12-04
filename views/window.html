@@ -1,9 +1,57 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="../public/css/window.css">
     </head>
 <body>
-    <div>Hello, world!</div>
-    <script src="/public/javascripts/app/window.js"></script>
+    <section id="widget" class="absolute-center">
+        <section id="left">
+            <div id="weather_view"></div>
+            <div id="settings_view"></div>
+        </section>
+        <section id="right">
+            <div id="r_top"> </div>
+            <div id="r_bottom"> </div>
+        </section>
+
+    </section>
+
+    <script id="widget_left" type="text/template">
+       <hgroup id="city_temp">
+           {{#f}}
+           <h2>{{user_friendly_temp.fahrenheit}}<span></span></h2>
+           {{/f}}
+           {{^f}}
+           <h2>{{user_friendly_temp.celsius}}</h2>
+           {{/f}}
+           <h3>{{name}}</h3>
+       </hgroup>
+       <a href="#" id="settings"><span>Settings</span></a>
+    </script>
+
+    <script id="widget_r_top" type="text/template">
+        <div id="weather_image" style="background:url({{ user_friendly_temp.image_src }}) center center no-repeat transparent;"></div>
+    </script>
+
+    <script id="widget_r_bottom" type="text/template">
+        <ul id="stats">
+            <li id="humidity">{{main.humidity}}<span>mm</span></li>
+            <li id="wind">{{wind.speed}}<span>mph</span></li>
+        </ul>
+    </script>
+
+    <script id="widget_left_settings" type="text/template">
+         <input type="text" value="{{name}}" id="city_name" />
+         <a href="#" id="celsius"></a>
+         <a href="#" id="fahrenheit"></a>
+         <a href="#" id="apply">apply</a>
+    </script>
+
+    <script src="../public/javascripts/bower_components/jquery/jquery.js"></script>
+    <script src="../public/javascripts/bower_components/underscore/underscore.js"></script>
+    <script src="../public/javascripts/bower_components/backbone/backbone.js"></script>
+    <script src="../public/javascripts/bower_components/async/lib/async.js"></script>
+    <script src="../public/javascripts/bower_components/mustache/mustache.js"></script>
+    <script src="../public/javascripts/app/window.js"></script>
 </body>
 </html>
