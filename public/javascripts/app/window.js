@@ -49,13 +49,17 @@ var WeatherNowExtension  = (function(){
 
         parse: function(data){
 
-            var _weather = data.weather[0];
+            if(data.weather){
+                var _weather = data.weather[0];
 
-            return _.extend(data, {user_friendly_temp:{
-                fahrenheit: WeatherNow.Utils.kelvin_to_fahrenheit(data.main.temp),
-                celsius: WeatherNow.Utils.kelvin_to_celsius(data.main.temp),
-                image_src : WeatherNow.WeatherConditionMapping[_weather.icon]
-            }});
+                return _.extend(data, {user_friendly_temp:{
+                    fahrenheit: WeatherNow.Utils.kelvin_to_fahrenheit(data.main.temp),
+                    celsius: WeatherNow.Utils.kelvin_to_celsius(data.main.temp),
+                    image_src : WeatherNow.WeatherConditionMapping[_weather.icon]
+                }});
+            }else{
+                return {};
+            }
         }
 
     });
@@ -79,9 +83,18 @@ var WeatherNowExtension  = (function(){
         },
 
         render: function() {
-            this.$el.html(Mustache.render(this.template, _.extend(this.model.attributes,{
-                f : WeatherNow.UserSettings.cache && WeatherNow.UserSettings.cache.scale === "c" ? false : true
-            }))).removeClass("hide");
+
+            var self = this;
+
+            WeatherNow.UserSettings.get(function(err,settings){
+
+                console.log("settings", settings);
+
+                self.$el.html(Mustache.render(self.template, _.extend(self.model.attributes,{
+                    f : settings.WeatherWidgetSettings.scale === "c" ? false : true
+                }))).removeClass("hide");
+            });
+
         }
     });
 
@@ -111,14 +124,18 @@ var WeatherNowExtension  = (function(){
             WeatherNow.UserSettings.set({
                 city: "New York",
                 scale: "f"
-            }, function(err, sett){});
+            }, function(err, sett){
+                WeatherNow.UserSettings.cache.WeatherWidgetSettings.scale = "f";
+            });
         },
 
         setCelsius: function(){
             WeatherNow.UserSettings.set({
                 city: "New York",
                 scale: "c"
-            }, function(err, sett){});
+            }, function(err, sett){
+                WeatherNow.UserSettings.cache.WeatherWidgetSettings.scale = "c";
+            });
         },
 
         closeSettings: function(){
@@ -127,7 +144,7 @@ var WeatherNowExtension  = (function(){
 
             WeatherNow.UserSettings.set({
                 city: city_name,
-                scale: WeatherNow.UserSettings.cache ? WeatherNow.UserSettings.cache.scale : "f"
+                scale: WeatherNow.UserSettings.cache ? WeatherNow.UserSettings.cache.WeatherWidgetSettings.scale : "f"
             }, function(err, sett){
                 Backbone.Notifications.trigger("closeSettings");
                 weatherWidget.fetch({
@@ -173,10 +190,10 @@ var WeatherNowExtension  = (function(){
         get: function(cb){
 
             if(WeatherNow.UserSettings.cache){
-                return WeatherNow.UserSettings.cache;
+                return cb(null,WeatherNow.UserSettings.cache);
             }else{
-                chrome.storage.local.get("WeatherWidgetSettings", function(err, settings){
-                    if(settings){
+                chrome.storage.local.get("WeatherWidgetSettings", function(settings){
+                    if(settings.WeatherWidgetSettings.city){
                         return cb(null, settings);
                     }else{
                         return cb(null,{
@@ -190,7 +207,7 @@ var WeatherNowExtension  = (function(){
 
         },
         set:function(settings, callback){
-            var _sett = _.extend({}, _.pick(settings, "city", "scale"));
+            var _sett = {"WeatherWidgetSettings": _.extend({}, _.pick(settings, "city", "scale"))};
             chrome.storage.local.set(_sett, function() {
                 WeatherNow.UserSettings.cache = _sett;
                 callback(null, "Settings saved");
@@ -212,7 +229,7 @@ var WeatherNowExtension  = (function(){
 
             function getUserSettings(callback){
                 var result = {};
-                WeatherNow.UserSettings.get(function(err, settings){
+                WeatherNow.UserSettings.get(function(err,settings){
                     result.user_settings = settings;
                     callback(err, result);
                 });
@@ -221,7 +238,7 @@ var WeatherNowExtension  = (function(){
 
         ], function(err, result){
             weatherWidget.fetch({
-                data: {q:result.user_settings.city}
+                data: {q:result.user_settings.WeatherWidgetSettings.city}
             });
         });
 
@@ -235,5 +252,7 @@ var WeatherNowExtension  = (function(){
 })();
 
 WeatherNowExtension.init();
+
+
 
 
