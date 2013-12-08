@@ -28,7 +28,7 @@
     "dojo": false,
 
     // Custom predefined globals.
-    "predef": ["chrome", "_", "Backbone", "it", "describe", "$", "async", "Mustache"],
+    "predef": ["chrome", "_", "Backbone", "it", "describe", "$", "async", "Mustache", "before", "WeatherNowExtension", "chai", "__chrome"],
 
     // Development
 

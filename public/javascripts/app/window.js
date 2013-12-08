@@ -196,7 +196,14 @@ var WeatherNowExtension = (function () {
       if (WeatherNow.UserSettings.cache) {
         return cb(null, WeatherNow.UserSettings.cache);
       } else {
-        chrome.storage.local.get("wwSettings", function (settings) {
+	      var _caller;
+        if (chrome.storage) {
+          _caller = chrome;
+        } else {
+          _caller = __chrome;
+        }
+
+        _caller.storage.local.get("wwSettings", function (settings) {
           if (settings.wwSettings && settings.wwSettings.city) {
             return cb(null, settings);
           } else {
@@ -208,6 +215,7 @@ var WeatherNowExtension = (function () {
             });
           }
         });
+
       }
 
     },
@@ -215,10 +223,18 @@ var WeatherNowExtension = (function () {
       var _sett = {
         "wwSettings": _.extend({}, _.pick(settings, "city", "scale"))
       };
-      chrome.storage.local.set(_sett, function () {
+      var _caller;
+      if (chrome.storage) {
+        _caller = chrome;
+      } else {
+        _caller = __chrome;
+      }
+
+      _caller.storage.local.set(_sett, function () {
         WeatherNow.UserSettings.cache = _sett;
         callback(null, "Settings saved");
       });
+
     }
   };
 
@@ -251,17 +267,26 @@ var WeatherNowExtension = (function () {
       }
 
     ], function (err, result) {
-      weatherWidget.fetch({
-        data: {
-          q: result.user_settings.wwSettings.city
-        }
-      });
+	    var _fetch_data = {
+		    data: {
+			    q: result.user_settings.wwSettings.city
+		    }
+	    };
+
+	    if(!chrome.storage){
+		    _.extend(_fetch_data,{
+			    dataType: "jsonp"
+		    });
+	    }
+	    
+      weatherWidget.fetch(_fetch_data);
     });
 
   };
 
   return {
-    init: init
+    init: init,
+    WeatherNow: WeatherNow
   };
 
 })();
