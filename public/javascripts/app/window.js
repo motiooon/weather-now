@@ -196,7 +196,7 @@ var WeatherNowExtension = (function () {
       if (WeatherNow.UserSettings.cache) {
         return cb(null, WeatherNow.UserSettings.cache);
       } else {
-	      var _caller;
+        var _caller;
         if (chrome.storage) {
           _caller = chrome;
         } else {
@@ -267,18 +267,18 @@ var WeatherNowExtension = (function () {
       }
 
     ], function (err, result) {
-	    var _fetch_data = {
-		    data: {
-			    q: result.user_settings.wwSettings.city
-		    }
-	    };
+      var _fetch_data = {
+        data: {
+          q: result.user_settings.wwSettings.city
+        }
+      };
 
-	    if(!chrome.storage){
-		    _.extend(_fetch_data,{
-			    dataType: "jsonp"
-		    });
-	    }
-	    
+      if (!chrome.storage) {
+        _.extend(_fetch_data, {
+          dataType: "jsonp"
+        });
+      }
+
       weatherWidget.fetch(_fetch_data);
     });
 
