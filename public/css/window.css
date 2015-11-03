@@ -20,9 +20,16 @@ textarea, input { outline: none; }
     display:none;
 }
 
+#ad{
+    text-align: center;
+    height: 120px;
+    clear:both;
+    padding: 5px 0;
+}
+
 #widget{
     width: 500px;
-    height: 282px;
+    height: 402px;
 }
 
 #widget #left, #widget #right{

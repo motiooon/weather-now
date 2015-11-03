@@ -1,4 +1,5 @@
 var assert = chai.assert;
+var APPID  = '6a5808578d3d9253038be6d27f05a83e';
 
 describe("Model", function () {
 
@@ -13,7 +14,8 @@ describe("Model", function () {
 
 	    weatherWidget.fetch({
 		    data: {
-			    q: "New York"
+			    q: "New York",
+                APPID : APPID
 		    },
 		    dataType: "jsonp",
 		    complete: function(){
