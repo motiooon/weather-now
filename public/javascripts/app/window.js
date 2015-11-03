@@ -1,3 +1,6 @@
+var APPID  = '6a5808578d3d9253038be6d27f05a83e';
+
+
 var WeatherNowExtension = (function () {
 
   var WeatherNow = {};
@@ -151,7 +154,8 @@ var WeatherNowExtension = (function () {
         Backbone.Notifications.trigger("closeSettings");
         weatherWidget.fetch({
           data: {
-            q: city_name
+            q: city_name,
+            APPID : APPID
           }
         });
       });
@@ -270,7 +274,7 @@ var WeatherNowExtension = (function () {
       var _fetch_data = {
         data: {
           q: result.user_settings.wwSettings.city,
-          APPID : '6a5808578d3d9253038be6d27f05a83e'
+          APPID : APPID
         }
       };
 
