@@ -269,7 +269,8 @@ var WeatherNowExtension = (function () {
     ], function (err, result) {
       var _fetch_data = {
         data: {
-          q: result.user_settings.wwSettings.city
+          q: result.user_settings.wwSettings.city,
+          APPID : '6a5808578d3d9253038be6d27f05a83e'
         }
       };
 

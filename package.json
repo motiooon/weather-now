@@ -1,6 +1,6 @@
 {
   "name": "WeatherNow",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple yet elegant, live in the moment, chrome weather plugin",
   "main": "background.js",
   "scripts": {
